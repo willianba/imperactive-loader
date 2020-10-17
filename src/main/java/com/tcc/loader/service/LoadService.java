@@ -1,7 +1,5 @@
 package com.tcc.loader.service;
 
-import java.util.List;
-
 import com.tcc.loader.client.GitHubClient;
 import com.tcc.loader.dto.GitHubFile;
 import com.tcc.loader.dto.TranslatedFile;
@@ -23,12 +21,9 @@ public class LoadService {
   @Autowired
   private Converter converter;
 
-  public void uploadFilesToGitHub(List<TranslatedFile> files) {
-    logger.info("Uploading {} files on GitHub", files.size());
-
-    files.forEach(file -> {
-      GitHubFile githubFile = converter.convertToGitHubFile(file);
-      client.uploadFile(githubFile);
-    });
+  public void uploadFileToGitHub(TranslatedFile file) {
+    logger.info("Uploading file {} on GitHub", file.getFileName());
+    GitHubFile githubFile = converter.convertToGitHubFile(file);
+    client.uploadFile(githubFile);
   }
 }

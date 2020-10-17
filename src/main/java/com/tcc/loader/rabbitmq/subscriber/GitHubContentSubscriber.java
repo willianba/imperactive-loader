@@ -1,7 +1,5 @@
 package com.tcc.loader.rabbitmq.subscriber;
 
-import java.util.List;
-
 import com.tcc.loader.dto.TranslatedFile;
 import com.tcc.loader.service.LoadService;
 
@@ -20,8 +18,8 @@ public class GitHubContentSubscriber {
   private LoadService service;
 
   @RabbitListener(queues = "${translated.queue}")
-  public void receiveTranslatedFiles(List<TranslatedFile> files) {
-    logger.info("Received {} translated files to be uploaded", files.size());
-    service.uploadFilesToGitHub(files);
+  public void receiveTranslatedFiles(TranslatedFile file) {
+    logger.info("Received translated file {} to be uploaded", file.getFileName());
+    service.uploadFileToGitHub(file);
   }
 }
